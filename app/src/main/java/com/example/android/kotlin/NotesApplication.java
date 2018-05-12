@@ -1,8 +1,14 @@
 package com.example.android.kotlin;
 
-/**
- * Created by e6420 on 5/12/2018.
- */
+import android.app.Application;
 
-public class NotesApplication {
+import com.example.android.kotlin.data.DataStore;
+
+public class NotesApplication extends Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        DataStore.init(this);
+    }
 }
