@@ -1,4 +1,4 @@
-package com.example.android.kotlinnotepad.notepad.crud;
+package com.example.android.kotlin.crud;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class CreateActivity extends AppCompatActivity {
+import com.example.android.kotlin.R;
+import com.example.android.kotlin.data.DataStore;
+import com.example.android.kotlin.data.Note;
 
+import java.util.Date;
+
+public class CreateActivity extends AppCompatActivity {
     public static Intent get(Context context) {
         return new Intent(context, CreateActivity.class);
     }
@@ -59,4 +64,5 @@ public class CreateActivity extends AppCompatActivity {
         note.setUpdatedAt(new Date());
         return note;
     }
+
 }

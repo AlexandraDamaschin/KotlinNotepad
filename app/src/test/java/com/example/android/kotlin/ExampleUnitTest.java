@@ -1,4 +1,4 @@
-package com.example.android.kotlinnotepad;
+package com.example.android.kotlin;
 
 import org.junit.Test;
 

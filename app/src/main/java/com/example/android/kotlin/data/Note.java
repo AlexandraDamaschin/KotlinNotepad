@@ -1,11 +1,11 @@
-package com.example.android.kotlinnotepad.notepad.data;
-
+package com.example.android.kotlin.data;
 
 import android.support.annotation.Nullable;
 
 import java.util.Date;
 
 public class Note {
+
     private int id = -1;
     @Nullable
     private String text;

@@ -1,12 +1,11 @@
-package com.example.android.kotlinnotepad.notepad.data;
-
+package com.example.android.kotlin.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.example.android.kotlinnotepad.notepad.data.NotesContract.SQL_CREATE_ENTRIES;
-import static com.example.android.kotlinnotepad.notepad.data.NotesContract.SQL_DELETE_ENTRIES;
+import static com.example.android.kotlin.data.NotesContract.SQL_CREATE_ENTRIES;
+import static com.example.android.kotlin.data.NotesContract.SQL_DELETE_ENTRIES;
 
 public class NotesOpenHelper extends SQLiteOpenHelper {
     public NotesOpenHelper(Context context) {

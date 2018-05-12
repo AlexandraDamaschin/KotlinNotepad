@@ -1,4 +1,4 @@
-package com.example.android.kotlinnotepad.notepad.data;
+package com.example.android.kotlin.data;
 
 import android.content.Context;
 
@@ -6,6 +6,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class DataStore {
+
     private DataStore() {
     }
 

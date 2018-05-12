@@ -1,13 +1,13 @@
-package com.example.android.kotlinnotepad.notepad.data;
+package com.example.android.kotlin.data;
 
 import android.provider.BaseColumns;
 
-import static com.example.android.kotlinnotepad.notepad.data.NotesContract.NoteTable.CREATED_AT;
-import static com.example.android.kotlinnotepad.notepad.data.NotesContract.NoteTable._TABLE_NAME;
+import static com.example.android.kotlin.data.NotesContract.NoteTable.CREATED_AT;
+import static com.example.android.kotlin.data.NotesContract.NoteTable._TABLE_NAME;
 
 public class NotesContract {
-    private NotesContract() {
-    }
+
+    private NotesContract() {}
 
     public static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + _TABLE_NAME + " (" +

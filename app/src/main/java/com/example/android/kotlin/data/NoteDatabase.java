@@ -1,4 +1,4 @@
-package com.example.android.kotlinnotepad.notepad.data;
+package com.example.android.kotlin.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,13 +9,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.example.android.kotlinnotepad.notepad.data.NotesContract.NoteTable.CREATED_AT;
-import static com.example.android.kotlinnotepad.notepad.data.NotesContract.NoteTable.IS_PINNED;
-import static com.example.android.kotlinnotepad.notepad.data.NotesContract.NoteTable.TEXT;
-import static com.example.android.kotlinnotepad.notepad.data.NotesContract.NoteTable.UPDATED_AT;
-import static com.example.android.kotlinnotepad.notepad.data.NotesContract.NoteTable._TABLE_NAME;
+import static android.provider.BaseColumns._ID;
+import static com.example.android.kotlin.data.NotesContract.NoteTable.CREATED_AT;
+import static com.example.android.kotlin.data.NotesContract.NoteTable.IS_PINNED;
+import static com.example.android.kotlin.data.NotesContract.NoteTable.TEXT;
+import static com.example.android.kotlin.data.NotesContract.NoteTable.UPDATED_AT;
+import static com.example.android.kotlin.data.NotesContract.NoteTable._TABLE_NAME;
 
 public class NoteDatabase {
+
     private final NotesOpenHelper helper;
 
     public NoteDatabase(Context context) {
@@ -80,13 +82,13 @@ public class NoteDatabase {
         helper.getWritableDatabase().update(_TABLE_NAME,
                 values,
                 _ID + " = ?",
-                new String[]{Integer.toString(note.getId())});
+                new String[]{ Integer.toString(note.getId()) });
     }
 
     public void delete(Note note) {
         helper.getWritableDatabase().delete(_TABLE_NAME,
                 _ID + " = ?",
-                new String[]{Integer.toString(note.getId())});
+                new String[]{ Integer.toString(note.getId()) });
     }
 
     private static Note fromCursor(Cursor cursor) {

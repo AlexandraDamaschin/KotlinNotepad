@@ -1,4 +1,4 @@
-package com.example.android.kotlinnotepad;
+package com.example.android.kotlin;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.android.kotlinnotepad", appContext.getPackageName());
+        assertEquals("com.example.android.kotlin", appContext.getPackageName());
     }
 }
