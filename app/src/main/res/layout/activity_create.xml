@@ -28,7 +28,7 @@
                     android:id="@+id/edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/clear"
+                    android:background="#fff"
                     android:hint="@string/start_typing"
                     android:singleLine="false"
                     android:textAppearance="?textAppearanceListItem"
