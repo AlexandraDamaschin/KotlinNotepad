@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Note {
 
+    //variables needed
     private int id = -1;
     @Nullable
     private String text;
@@ -13,14 +14,17 @@ public class Note {
     private Date createdAt = new Date();
     private Date updatedAt;
 
+    //get id
     public int getId() {
         return id;
     }
 
+    //set id
     public void setId(int id) {
         this.id = id;
     }
 
+    //get and set text
     @Nullable
     public String getText() {
         return text;
@@ -30,6 +34,7 @@ public class Note {
         this.text = text;
     }
 
+    //get and set is pinned
     public boolean isPinned() {
         return isPinned;
     }
@@ -38,6 +43,7 @@ public class Note {
         isPinned = pinned;
     }
 
+    //get and set date
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -46,6 +52,7 @@ public class Note {
         this.createdAt = createdAt;
     }
 
+    //get and set update date
     public Date getUpdatedAt() {
         return updatedAt;
     }
