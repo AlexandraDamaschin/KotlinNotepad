@@ -7,21 +7,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 
 
-class SpaceItemDecoration : RecyclerView.ItemDecoration {
+class SpaceItemDecoration(context: Context, dimenRes: Int) : RecyclerView.ItemDecoration() {
 
-    private val context: Context
-    private val dimenRes: Int
-    private val space: Int
 
-    constructor(context: Context, dimenRes: Int) {
-        this.context = context
-        this.dimenRes = dimenRes
-        this.space = context.resources.getDimensionPixelOffset(dimenRes)
-    }
-
-    private constructor() {
-        throw RuntimeException()
-    }
+    private val space: Int = context.resources.getDimensionPixelOffset(dimenRes)
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
         super.getItemOffsets(outRect, view, parent, state)
