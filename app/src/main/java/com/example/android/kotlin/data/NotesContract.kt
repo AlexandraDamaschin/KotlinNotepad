@@ -21,18 +21,17 @@ object NotesContract {
 
     val SQL_CREATE_ENTRIES =
             "CREATE TABLE " +
-                    _TABLE_NAME + " (" +
-                    _ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    TEXT + " TEXT, " +
-                    IS_PINNED + " INTEGER, " +
-                    CREATED_AT + " INTEGER, " +
-                    UPDATED_AT + " INTEGER" +
-                    ")"
+                    "$_TABLE_NAME (" +
+                    "$_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "$TEXT TEXT, " +
+                    "$IS_PINNED INTEGER, " +
+                    "$CREATED_AT INTEGER, " +
+                    "$UPDATED_AT INTEGER)"
 
     val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + _TABLE_NAME
 
     val SQL_QUERY_ALL =
-            "SELECT * FROM NOTE ORDER BY $CREATED_AT DESC"
+            "SELECT * FROM $_TABLE_NAME ORDER BY $CREATED_AT DESC"
 
 
 }
