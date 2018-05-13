@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.item_note.view.*
 import java.util.ArrayList
 
 class NotesAdapter(private val context: Context) : RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
+
     private var notes: List<Note> = ArrayList()
     private var isRefreshing = false
 
@@ -51,7 +52,7 @@ class NotesAdapter(private val context: Context) : RecyclerView.Adapter<NotesAda
         if (isRefreshing) return
         isRefreshing = true
         DataStore.execute {
-            val notes = DataStore.notes.all
+            val notes = DataStore.notes.getAll()
             Handler(Looper.getMainLooper()).post {
                 this@NotesAdapter.notes = notes
                 notifyDataSetChanged()
