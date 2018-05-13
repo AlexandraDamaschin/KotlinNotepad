@@ -7,11 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper
 class NotesOpenHelper(context: Context) : SQLiteOpenHelper(context, "notes.db", null, 1) {
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL(NotesContract.SQL_CREATE_ENTRIES())
+        db.execSQL(NotesContract.SQL_CREATE_ENTRIES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL(NotesContract.SQL_DELETE_ENTRIES())
+        db.execSQL(NotesContract.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 }
