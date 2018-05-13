@@ -14,7 +14,7 @@ import java.util.*
 
 class NoteDatabase(context: Context) {
 
-    private val helper: NotesOpenHelper(context)
+    private val helper = NotesOpenHelper(context)
 
     fun getAll(): List<Note> {
         return helper.readableDatabase.query(_TABLE_NAME,
