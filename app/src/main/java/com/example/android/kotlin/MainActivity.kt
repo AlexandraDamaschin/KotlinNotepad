@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     public override fun onDestroy() {
         super.onDestroy()
-        recycler!!.adapter = null
+        recycler.adapter = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -55,6 +55,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refresh() {
-        (recycler!!.adapter as NotesAdapter).refresh()
+        (recycler.adapter as NotesAdapter).refresh()
     }
 }
