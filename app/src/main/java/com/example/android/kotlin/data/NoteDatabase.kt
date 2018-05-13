@@ -3,86 +3,63 @@ package com.example.android.kotlin.data
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
-
-import java.util.ArrayList
-import java.util.Date
-
 import android.provider.BaseColumns._ID
 import com.example.android.kotlin.data.NotesContract.NoteTable.CREATED_AT
 import com.example.android.kotlin.data.NotesContract.NoteTable.IS_PINNED
 import com.example.android.kotlin.data.NotesContract.NoteTable.TEXT
 import com.example.android.kotlin.data.NotesContract.NoteTable.UPDATED_AT
 import com.example.android.kotlin.data.NotesContract.NoteTable._TABLE_NAME
+import org.jetbrains.anko.db.transaction
+import java.util.*
 
 class NoteDatabase(context: Context) {
 
-    private val helper: NotesOpenHelper
+    private val helper: NotesOpenHelper(context)
 
-    val all: List<Note>
-        get() {
-            val cursor = helper.readableDatabase.query(Companion.get_TABLE_NAME(), null, null, null, null, null,
-                    Companion.getCREATED_AT())
-            val retval = allFromCursor(cursor)
-            cursor.close()
-            return retval
-        }
-
-    init {
-        helper = NotesOpenHelper(context)
+    fun getAll(): List<Note> {
+        return helper.readableDatabase.query(_TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                CREATED_AT).use(this::allFromCursor)
     }
 
+
     fun loadAllByIds(vararg ids: Int): List<Note> {
-        val questionMarks = StringBuilder()
-        var i = 0
-        while (i++ < ids.size) {
-            questionMarks.append("?")
-            if (i <= ids.size - 1) {
-                questionMarks.append(", ")
-            }
-        }
-        val args = arrayOfNulls<String>(ids.size)
-        i = 0
-        while (i < ids.size) {
-            args[i] = Integer.toString(ids[i])
-            ++i
-        }
-        val selection = _ID + " IN (" + questionMarks.toString() + ")"
-        val cursor = helper.readableDatabase.query(Companion.get_TABLE_NAME(), null,
+        val questionMarks = ids.map { "?" }.joinToString { ", " }
+        val args = ids.map { "$it" }.toTypedArray()
+        val selection = "$_ID IN ($questionMarks)"
+        return helper.readableDatabase.query(_TABLE_NAME,
+                null,
                 selection,
-                args, null, null,
-                Companion.getCREATED_AT())
-        val retval = allFromCursor(cursor)
-        cursor.close()
-        return retval
+                args,
+                null,
+                null,
+                CREATED_AT).use(this::allFromCursor)
     }
 
     fun insert(vararg notes: Note) {
-        val values = fromNotes(notes)
-        val db = helper.writableDatabase
-        db.beginTransaction()
-        try {
-            for (value in values) {
-                db.insert(Companion.get_TABLE_NAME(), null, value)
+        helper.writableDatabase.transaction {
+            fromNotes(notes).forEach {
+                insert(_TABLE_NAME, null, it)
             }
-            db.setTransactionSuccessful()
-        } finally {
-            db.endTransaction()
         }
     }
 
     fun update(note: Note) {
         val values = fromNote(note)
-        helper.writableDatabase.update(Companion.get_TABLE_NAME(),
+        helper.writableDatabase.update(_TABLE_NAME,
                 values,
                 _ID + " = ?",
-                arrayOf(Integer.toString(note.id)))
+                arrayOf("${note.id}"))
     }
 
     fun delete(note: Note) {
-        helper.writableDatabase.delete(Companion.get_TABLE_NAME(),
+        helper.writableDatabase.delete(_TABLE_NAME,
                 _ID + " = ?",
-                arrayOf(Integer.toString(note.id)))
+                arrayOf("${note.id}"))
     }
 
     private fun fromCursor(cursor: Cursor): Note {
@@ -105,23 +82,19 @@ class NoteDatabase(context: Context) {
     }
 
     private fun fromNote(note: Note): ContentValues {
-        val values = ContentValues()
-        val id = note.id
-        if (id != -1) {
-            values.put(_ID, id)
+        return ContentValues().apply {
+            val id = note.id
+            if (id != -1) {
+                put(_ID, id)
+            }
+            put(TEXT, note.text)
+            put(IS_PINNED, note.isPinned)
+            put(CREATED_AT, note.createdAt.time)
+            put(UPDATED_AT, note.updatedAt!!.time)
         }
-        values.put(Companion.getTEXT(), note.text)
-        values.put(Companion.getIS_PINNED(), note.isPinned)
-        values.put(Companion.getCREATED_AT(), note.createdAt.time)
-        values.put(Companion.getUPDATED_AT(), note.updatedAt!!.time)
-        return values
     }
 
-    private fun fromNotes(notes: Array<Note>): List<ContentValues> {
-        val values = ArrayList<ContentValues>()
-        for (note in notes) {
-            values.add(fromNote(note))
-        }
-        return values
+    private fun fromNotes(notes: Array<out Note>): List<ContentValues> {
+        return notes.map(this::fromNote)
     }
 }
