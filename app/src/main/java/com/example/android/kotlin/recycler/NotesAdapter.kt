@@ -12,6 +12,8 @@ import android.widget.TextView
 import com.example.android.kotlin.R
 import com.example.android.kotlin.data.DataStore
 import com.example.android.kotlin.data.Note
+import com.example.android.kotlin.util.layoutInflater
+import kotlinx.android.synthetic.main.item_note.view.*
 
 import java.util.ArrayList
 
@@ -36,7 +38,7 @@ class NotesAdapter(private val context: Context) : RecyclerView.Adapter<NotesAda
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_note, parent, false)
+        val view = context.layoutInflater.inflate(R.layout.item_note, parent, false)
         return NotesViewHolder(view)
     }
 
@@ -60,10 +62,6 @@ class NotesAdapter(private val context: Context) : RecyclerView.Adapter<NotesAda
 
     class NotesViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        internal var text: TextView
-
-        init {
-            text = itemView.findViewById(R.id.text)
-        }
+        var text = itemView.text
     }
 }
